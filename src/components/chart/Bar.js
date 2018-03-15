@@ -31,15 +31,49 @@
 //     }, {responsive: true, maintainAspectRatio: false})
 //   }
 // })
-
+import moment from 'moment'
 import { Bar } from 'vue-chartjs'
 
 export default {
   extends: Bar,
+  data: function () {
+    return {
+      items: [],
+      times: [],
+      page_urls: [],
+      amounts: []
+    }
+  },
+  methods: {
+    getPageViews() {
+      this.api.getData('page_view').then((res) => {
+        this.items = res.data
+        this.items.forEach((item) => {
+          let time = moment(item.key_as_string).get('hour')
+          this.times.append[time]
+          let buckets = item.group_by_page_view.buckets
+          buckets.forEach((bucket) => {
+            this.page_urls.append(bucket.key)
+            this.amounts.append(bucket.doc_count)
+          })
+          if (item.key_as_string && item.orders.length) {
+            item.orderRecord = item.orders.length
+          } else {
+            item.orderRecord = 0
+          }
+        })
+        console.log(this.items)
+      }, (err) => {
+        console.log(err)
+      })
+    }
+  },
   mounted () {
     // Overwriting base render method with actual data.
+    // So I need to sort the data accordingly
+    this.getPageViews()
     this.renderChart({
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+      labels: this.times,
       datasets: [
         {
           type: 'bar',
