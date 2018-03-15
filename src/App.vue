@@ -1,4 +1,4 @@
-<template>
+  <template>
   <v-app>
     <vue-progress-bar>
     </vue-progress-bar>
@@ -92,30 +92,6 @@
           title: 'Dashboard',
           vertical: 'Dashboard',
           link: 'dashboard'
-        },
-        {
-          icon: 'bubble_chart',
-          title: 'Orders',
-          vertical: 'Order',
-          link: 'orders'
-        },
-        {
-          icon: 'bubble_chart',
-          title: 'Customers',
-          vertical: 'Customer',
-          link: 'customers'
-        },
-        {
-          icon: 'bubble_chart',
-          title: 'Products',
-          vertical: 'Product',
-          link: 'products'
-        },
-        {
-          icon: 'bubble_chart',
-          title: 'About',
-          vertical: 'About',
-          link: 'about'
         }],
         userMenus: [{
           icon: 'bubble_chart',

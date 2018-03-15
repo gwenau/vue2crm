@@ -3,13 +3,13 @@ import Router from 'vue-router'
 import ErrorPage from '@/components/404'
 
 import Dashboard from '@/components/Dashboard'
-import Orders from '@/components/Orders'
-import Order from '@/components/Order'
-import About from '@/components/About'
-import Customers from '@/components/Customers'
-import Customer from '@/components/Customer'
-import Products from '@/components/Products'
-import Product from '@/components/Product'
+// import Orders from '@/components/Orders'
+// import Order from '@/components/Order'
+// import About from '@/components/About'
+// import Customers from '@/components/Customers'
+// import Customer from '@/components/Customer'
+// import Products from '@/components/Products'
+// import Product from '@/components/Product'
 
 import Login from '@/components/Login'
 import ChangePassword from '@/components/ChangePassword'
@@ -36,16 +36,6 @@ export default new Router({
   routes: [
     { path: '/404', component: ErrorPage, name: 'ErrorPage' },
     { path: '/dashboard', component: Dashboard, name: 'Dashboard', beforeEnter: requireAuth },
-    { path: '/about', component: About, name: 'About', beforeEnter: requireAuth },
-    { path: '/orders', component: Orders, name: 'Orders', beforeEnter: requireAuth },
-    { path: '/neworder', component: Order, name: 'NewOrder', beforeEnter: requireAuth },
-    { path: '/order/:id', component: Order, name: 'Order', beforeEnter: requireAuth },
-    { path: '/customers', component: Customers, name: 'Customers', beforeEnter: requireAuth },
-    { path: '/newcustomer', component: Customer, name: 'NewCustomer', beforeEnter: requireAuth },
-    { path: '/customer/:id', component: Customer, name: 'Customer', beforeEnter: requireAuth },
-    { path: '/product/:id', component: Product, name: 'Product', beforeEnter: requireAuth },
-    { path: '/products', component: Products, name: 'Products', beforeEnter: requireAuth },
-    { path: '/newproduct', component: Product, name: 'NewProduct', beforeEnter: requireAuth },
     { path: '/login', component: Login, name: 'Login' },
     { path: '/changePassword', component: ChangePassword, name: 'ChangePassword' },
     { path: '/logout',
