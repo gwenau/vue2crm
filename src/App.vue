@@ -2,10 +2,7 @@
   <v-app>
     <vue-progress-bar>
     </vue-progress-bar>
-    <template v-if="!loggedIn">
-      <router-view></router-view>
-    </template>
-    <template v-if="loggedIn">
+    <template>
       <v-navigation-drawer dark fixed v-model="drawer" app>
         <!-- mini-variant.sync="true" -->
         <v-list class="pa-0">
@@ -14,7 +11,7 @@
               <img src="/assets/img/avatar0.png"></img>
             </v-list-tile-avatar>
             <v-list-tile-content>
-              <v-list-tile-title>{{user.firstName}} {{user.lastName}}</v-list-tile-title>
+              <v-list-tile-title>John Smith</v-list-tile-title>
             </v-list-tile-content>
             <v-menu bottom left offset-y origin="bottom right" transition="v-slide-y-transition">
               <v-btn icon light slot="activator">

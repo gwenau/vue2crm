@@ -11,23 +11,23 @@ import Dashboard from '@/components/Dashboard'
 // import Products from '@/components/Products'
 // import Product from '@/components/Product'
 
-import Login from '@/components/Login'
+// import Login from '@/components/Login'
 import ChangePassword from '@/components/ChangePassword'
 
 Vue.use(Router)
 
 import auth from '@/utils/auth'
 
-function requireAuth (to, from, next) {
-  if (!auth.loggedIn()) {
-    next({
-      path: '/login',
-      query: { redirect: to.fullPath }
-    })
-  } else {
-    next()
-  }
-}
+// function requireAuth (to, from, next) {
+//   if (!auth.loggedIn()) {
+//     next({
+//       path: '/login',
+//       query: { redirect: to.fullPath }
+//     })
+//   } else {
+//     next()
+//   }
+// }
 
 export default new Router({
   base: __dirname,
@@ -35,8 +35,7 @@ export default new Router({
   scrollBehavior: () => ({ y: 0 }),
   routes: [
     { path: '/404', component: ErrorPage, name: 'ErrorPage' },
-    { path: '/dashboard', component: Dashboard, name: 'Dashboard', beforeEnter: requireAuth },
-    { path: '/login', component: Login, name: 'Login' },
+    { path: '/dashboard', component: Dashboard, name: 'Dashboard' },
     { path: '/changePassword', component: ChangePassword, name: 'ChangePassword' },
     { path: '/logout',
       beforeEnter (to, from, next) {
