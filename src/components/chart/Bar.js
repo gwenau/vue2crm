@@ -32,14 +32,6 @@ export default {
           })
           this.page_urls_and_amounts.push(pageUrlAndViews)
         })
-        this.page_urls_and_amounts.forEach((item) => {
-          console.log('======================')
-          console.log(item.type)
-          console.log(item.label)
-          console.log(item.data)
-          console.log(item.backgroundColor)
-        })
-        this.dataReady = true
       }, (err) => {
         console.log(err)
       })
