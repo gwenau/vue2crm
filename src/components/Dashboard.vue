@@ -11,6 +11,7 @@
 </template>
 <script>
     import Bar from './chart/Bar'
+
     export default {
         name: 'Dashboard',
         components: {

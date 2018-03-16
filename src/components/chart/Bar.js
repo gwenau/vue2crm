@@ -1,36 +1,4 @@
-// import 'chart.js'
-// import {Bar} from 'vue-chartjs'
-
-// export default Bar.extend({
-//   data: function () {
-//     return {
-//       items: []
-//     }
-//   },
-//   methods: {
-//     getPageViews() {
-//       this.api.getData('page_view').then((res) => {
-//         this.items = res.data
-//         console.log(this.items)
-//       }, (err) => {
-//         console.log(err)
-//       })
-//     }
-//   },
-//   mounted () {
-//     this.getPageViews()
-//     this.renderChart({
-//       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-//       datasets: [
-//         {
-//           label: 'Data One',
-//           backgroundColor: '#f87979',
-//           data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11]
-//         }
-//       ]
-//     }, {responsive: true, maintainAspectRatio: false})
-//   }
-// })
+// import axios from 'axios'
 import moment from 'moment'
 import { Bar } from 'vue-chartjs'
 import _ from 'lodash'
@@ -64,39 +32,50 @@ export default {
           })
           this.page_urls_and_amounts.push(pageUrlAndViews)
         })
-        console.log('page_urls_and_amounts', this.page_urls_and_amounts)
+        this.page_urls_and_amounts.forEach((item) => {
+          console.log('======================')
+          console.log(item.type)
+          console.log(item.label)
+          console.log(item.data)
+          console.log(item.backgroundColor)
+        })
+        this.dataReady = true
       }, (err) => {
         console.log(err)
       })
     }
   },
-  mounted () {
+  created () {
     this.mapTimes()
     this.getPageViews()
-    this.renderChart({
-      labels: this.times,
-      datasets: this.page_urls_and_amounts},
-      {
-        title: {
-          display: true,
-          text: 'Oversikt'
-        },
-        scales: {
-          yAxes: [{
-            stacked: true
-          }],
-          xAxes: [ {
-            stacked: true,
-            categoryPercentage: 0.5,
-            barPercentage: 1
-          }]
-        },
-        legend: {
-          display: true
-        },
-        responsive: true,
-        maintainAspectRatio: false
-      }
-    )
+  },
+  mounted () {
+    setTimeout(() => {
+      this.renderChart({
+        labels: this.times,
+        datasets: this.page_urls_and_amounts}, {
+          title: {
+            display: true,
+            text: 'Page views on urls'
+          },
+          scales: {
+            yAxes: [{
+              stacked: true
+            }],
+            xAxes: [ {
+              stacked: true,
+              categoryPercentage: 0.5,
+              barPercentage: 1
+            }]
+          },
+          legend: {
+            display: true
+          },
+          responsive: true,
+          maintainAspectRatio: false
+        }
+      )
+    }, 1500)
+
   }
 }

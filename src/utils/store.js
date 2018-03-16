@@ -5,6 +5,7 @@ import createPersistedState from 'vuex-persistedstate'
 Vue.use(Vuex)
 
 const state = {
+  dataLoaded: false,
   callingAPI: false,
   searching: '',
   user: null,
