@@ -26,12 +26,12 @@
                 }],
                 xAxes: [ {
                   stacked: true,
-                  categoryPercentage: 0.5,
                   barPercentage: 1
                 }]
               },
               legend: {
-                display: true
+                display: true,
+                position: 'bottom'
               },
               responsive: true,
               maintainAspectRatio: false
