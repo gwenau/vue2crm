@@ -10,7 +10,7 @@
     </v-container>
 </template>
 <script>
-    import Bar from './chart/Bar'
+    import Bar from './chart/Bar.vue'
 
     export default {
         name: 'Dashboard',
