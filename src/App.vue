@@ -11,7 +11,7 @@
               <img src="/assets/img/avatar0.png"></img>
             </v-list-tile-avatar>
             <v-list-tile-content>
-              <v-list-tile-title>John Smith</v-list-tile-title>
+              <v-list-tile-title>Gwen Au</v-list-tile-title>
             </v-list-tile-content>
             <v-menu bottom left offset-y origin="bottom right" transition="v-slide-y-transition">
               <v-btn icon light slot="activator">
