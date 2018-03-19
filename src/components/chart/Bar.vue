@@ -1,6 +1,12 @@
 <template>
   <div class="small">
-    <bar-chart :chart-data="datacollection" :options="options"></bar-chart>
+    <bar-chart :chart-data="datacollection" :options="options">
+    </bar-chart>
+    <button class="button is-primary" @click="getPageViews('2017-06-01T00:00:00.000Z', '2017-06-02T00:00:00.000Z', 10)">10 minute intervals</button>
+    <button class="button is-primary" @click="getPageViews('2017-06-01T00:00:00.000Z', '2017-06-02T00:00:00.000Z', 30)">30 minute intervals</button>
+    <button class="button is-primary" @click="getPageViews('2017-06-01T00:00:00.000Z', '2017-06-02T00:00:00.000Z', 60)">60 minute intervals</button>
+  </div>
+  </div>
   </div>
 </template>
 
@@ -35,6 +41,8 @@
               responsive: true,
               maintainAspectRatio: false
         },
+        startDate: moment(),
+        endDate: moment(),
         startTime: moment(),
         endTime: moment(),
         times: [],
@@ -49,6 +57,7 @@
     },
     methods: {
       getTimeStops(start, end, interval) {
+        console.log(interval)
         this.startTime = moment(start, 'HH:mm')
         this.endTime = moment(end, 'HH:mm')
         if (this.endTime.isBefore(this.startTime)) {
@@ -60,10 +69,12 @@
           this.startTime.add(interval, 'minutes')
         }
         this.times = timeStops
+        console.log('this.times array: ', this.times)
       },
-      getPageViews() {
-        this.getTimeStops('00:00', '23:59', 30)
-        this.api.getData('page_view').then((response) => {
+      getPageViews(startDate = '2017-06-01T00:00:00.000Z', endDate = '2017-06-02T00:00:00.000Z', interval = 30) {
+        this.getTimeStops('00:00', '23:59', interval)
+        this.api.getData(`page_view?start_date=${startDate}&end_date=${endDate}&interval=${interval}`).then((response) => {
+          console.log(response)
           this.items = response.data
           this.items.forEach((item, i) => {
             let pageUrlAndViews = {type: 'bar', label: item.key, backgroundColor: this.colours[i], data: []}
@@ -71,6 +82,7 @@
             buckets.forEach((bucket) => {
               let hash = this.times_object
               let time = moment(bucket.key).format('HH:mm')
+              console.log('Response time', time)
               hash[time] = bucket.doc_count
               let newArrayDataOfOjbect = Object.values(hash)
               pageUrlAndViews.data = newArrayDataOfOjbect
