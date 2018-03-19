@@ -60,7 +60,6 @@
           this.startTime.add(interval, 'minutes')
         }
         this.times = timeStops
-        console.log(this.times)
       },
       getPageViews() {
         this.getTimeStops('00:00', '23:59', 30)
