@@ -48,8 +48,7 @@
         times: [],
         times_object: [],
         colours: ['#e6194b', '#3cb44b', '#ffe119', '#0082c8', '#f58231', '#911eb4', '#46f0f0', '#f032e6', '#d2f53c', '#fabebe', '#008080', '#e6beff', '#aa6e28', '#fffac8', '#800000', '#aaffc3', '#808000', '#ffd8b1', '#000080', '#808080'],
-        items: [],
-        page_urls_and_amounts: []
+        items: []
       }
     },
     mounted () {
@@ -57,7 +56,6 @@
     },
     methods: {
       getTimeStops(start, end, interval) {
-        console.log(interval)
         this.startTime = moment(start, 'HH:mm')
         this.endTime = moment(end, 'HH:mm')
         if (this.endTime.isBefore(this.startTime)) {
@@ -69,30 +67,27 @@
           this.startTime.add(interval, 'minutes')
         }
         this.times = timeStops
-        console.log('this.times array: ', this.times)
       },
       getPageViews(startDate = '2017-06-01T00:00:00.000Z', endDate = '2017-06-02T00:00:00.000Z', interval = 30) {
         this.getTimeStops('00:00', '23:59', interval)
-        this.api.getData(`page_view?start_date=${startDate}&end_date=${endDate}&interval=${interval}`).then((response) => {
-          console.log(response)
+        this.api.getData(`page_view.json?start_date=${startDate}&end_date=${endDate}&interval=${interval}`).then((response) => {
           this.items = response.data
+          this.datacollection = Object.assign({})
+          this.$set(this.datacollection, 'labels', [])
+          this.$set(this.datacollection, 'datasets', [])
           this.items.forEach((item, i) => {
             let pageUrlAndViews = {type: 'bar', label: item.key, backgroundColor: this.colours[i], data: []}
             let buckets = item.group_by_half_hour.buckets
             buckets.forEach((bucket) => {
               let hash = this.times_object
               let time = moment(bucket.key).format('HH:mm')
-              console.log('Response time', time)
               hash[time] = bucket.doc_count
               let newArrayDataOfOjbect = Object.values(hash)
               pageUrlAndViews.data = newArrayDataOfOjbect
             })
-            this.page_urls_and_amounts.push(pageUrlAndViews)
+            this.datacollection.labels = this.times
+            this.datacollection.datasets.push(pageUrlAndViews)
           })
-          this.datacollection = {
-            labels: this.times,
-            datasets: this.page_urls_and_amounts
-          }
         }, (err) => {
           console.log(err)
         })

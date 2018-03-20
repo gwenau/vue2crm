@@ -36,8 +36,6 @@ export default {
   getData (action) {
     let url = `${BASE_URL}`
     url += action
-    console.log('url')
-    console.log(url)
     return instance.get(url)
   },
   postData (action, data) {
